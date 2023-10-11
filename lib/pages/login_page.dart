@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       validator: (value) => value!.length > 6
           ? null
-          : "please enter passwaord greater than 6 char",
+          : "please enter password greater than 6 char",
     );
   }
 

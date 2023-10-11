@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,6 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? _name;
   String? _email;
   String? _password;
+  File? _imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,12 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [titleWidget(), regiterFormWidget(), registerbutton()],
+          children: [
+            titleWidget(),
+            profileImageWidget(),
+            regiterFormWidget(),
+            registerbutton(),
+          ],
         ),
       ),
     );
@@ -47,6 +55,35 @@ class _RegisterPageState extends State<RegisterPage> {
       "Finstagram",
       style: TextStyle(
         fontSize: 30,
+      ),
+    );
+  }
+
+  Widget profileImageWidget() {
+    var image = _imageFile != null
+        ? FileImage(_imageFile!)
+        : const NetworkImage("https://i.pravatar.cc/300");
+    return GestureDetector(
+      onTap: () {
+        FilePicker.platform.pickFiles(type: FileType.image).then((result) {
+          setState(() {
+            if (result != null) {
+              _imageFile = File(result.files.first.path!);
+            } else {
+              // User canceled the picker
+            }
+          });
+        });
+      },
+      child: Container(
+        height: _deviceHeight * 0.15,
+        width: _deviceHeight * 0.15,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: image as ImageProvider,
+          ),
+        ),
       ),
     );
   }
@@ -106,7 +143,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _nameFormField() {
     return TextFormField(
-      obscureText: true,
       decoration: const InputDecoration(hintText: "Name"),
       onSaved: (value) {
         setState(() {
@@ -119,7 +155,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _emailFormField() {
     return TextFormField(
-      obscureText: true,
       decoration: const InputDecoration(hintText: "Email"),
       onSaved: (value) {
         setState(() {
@@ -136,6 +171,11 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _registerUser() {
-    if (_registerState.currentState!.validate()) {}
+    if (_registerState.currentState!.validate() && _imageFile != null) {
+      _registerState.currentState?.save;
+      print("Success");
+    } else {
+      print("Faliur");
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:finstagram/pages/Login_page.dart';
+import 'package:finstagram/pages/home_page.dart';
 import 'package:finstagram/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,14 +15,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Finstagram',
+      color: Colors.red,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      initialRoute: "login",
+      initialRoute: "home",
       routes: {
         "register": (context) => RegisterPage(),
-        "login": (context) => LoginPage()
+        "login": (context) => LoginPage(),
+        "home": (context) => HomePage(),
       },
     );
   }
