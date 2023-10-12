@@ -3,7 +3,9 @@ import 'package:finstagram/pages/home_page.dart';
 import 'package:finstagram/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
